@@ -1,19 +1,42 @@
 {
   "name": "gemini-flash-api",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Professional AI Chatbot with Gemini API",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "keywords": [],
+  "keywords": [
+    "ai",
+    "chatbot",
+    "gemini",
+    "nextjs"
+  ],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
-    "multer": "^2.0.2"
+    "multer": "^2.0.2",
+    "next": "^14.2.7",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@types/node": "^20.16.1",
+    "@types/react": "^18.3.4",
+    "@types/react-dom": "^18.3.0",
+    "typescript": "^5.5.4",
+    "tailwindcss": "^3.4.9",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.41",
+    "lucide-react": "^0.427.0",
+    "react-dropzone": "^14.2.3",
+    "@types/multer": "^1.4.11"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.7"
   }
 }
