@@ -5,6 +5,7 @@ import { Send, Paperclip, Image, FileText, Mic, X, Bot, User, Loader2, Sparkles 
 import { Message, FileUpload } from '@/types';
 import Header from './Header';
 import LoadingSpinner from './LoadingSpinner';
+import TimeDisplay from './TimeDisplay';
 
 export default function ChatInterface() {
     const [messages, setMessages] = useState<Message[]>([
@@ -146,8 +147,8 @@ export default function ChatInterface() {
                     >
                         <div className={`flex items-start space-x-3 max-w-3xl ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                             <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${message.type === 'user'
-                                    ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white'
-                                    : 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-600'
+                                ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white'
+                                : 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-600'
                                 }`}>
                                 {message.type === 'user' ? (
                                     <User className="w-5 h-5" />
@@ -177,7 +178,7 @@ export default function ChatInterface() {
                                     </div>
                                 )}
                                 <div className="text-xs opacity-60 mt-3 flex items-center space-x-2">
-                                    <span>{message.timestamp.toLocaleTimeString()}</span>
+                                    <TimeDisplay timestamp={message.timestamp} />
                                 </div>
                             </div>
                         </div>
