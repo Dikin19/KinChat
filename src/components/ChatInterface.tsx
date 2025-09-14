@@ -261,7 +261,7 @@ export default function ChatInterface() {
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
                                 onKeyPress={handleKeyPress}
-                                placeholder="Type your message or attach a file to get started..."
+                                placeholder="Type your message"
                                 className="input-field resize-none pr-20 rounded-xl border-2 border-gray-200 focus:border-primary-500 focus:ring-0"
                                 rows={1}
                                 style={{ minHeight: '56px', maxHeight: '120px' }}
