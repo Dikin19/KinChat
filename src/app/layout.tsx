@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import dikinIcon from './dikin.png';
 
 export const metadata: Metadata = {
     title: 'KinChat - Made by AIGemini',
     description: 'Professional AI Chatbot with text, image, document, and audio analysis capabilities',
     keywords: ['AI', 'Chatbot', 'Gemini', 'Assistant', 'Machine Learning'],
     authors: [{ name: 'KinChat' }],
+    icons: dikinIcon.src
 }
 
 export default function RootLayout({
