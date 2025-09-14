@@ -2,10 +2,10 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-    title: 'AI Chatbot - Powered by Gemini',
+    title: 'KinChat - Made by AIGemini',
     description: 'Professional AI Chatbot with text, image, document, and audio analysis capabilities',
     keywords: ['AI', 'Chatbot', 'Gemini', 'Assistant', 'Machine Learning'],
-    authors: [{ name: 'AI Chatbot Team' }],
+    authors: [{ name: 'KinChat' }],
 }
 
 export default function RootLayout({

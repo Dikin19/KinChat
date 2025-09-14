@@ -12,7 +12,7 @@ export default function ChatInterface() {
         {
             id: '1',
             type: 'ai',
-            content: 'Hello! I\'m your AI assistant powered by Google Gemini. I can help you with text conversations, analyze images, process documents, and transcribe audio. How can I assist you today?',
+            content: 'Hello! I\'m KinChat. I can help you with text conversations, analyze images, process documents, and transcribe audio. How can I assist you today?',
             timestamp: new Date(),
         },
     ]);
@@ -160,7 +160,7 @@ export default function ChatInterface() {
                                 {message.type === 'ai' && (
                                     <div className="flex items-center space-x-2 mb-2 text-primary-600">
                                         <Sparkles className="w-4 h-4" />
-                                        <span className="text-xs font-medium">AI Assistant</span>
+                                        <span className="text-xs font-medium">KinChat Your AI Assistant</span>
                                     </div>
                                 )}
                                 <p className="whitespace-pre-wrap leading-relaxed">{message.content}</p>
@@ -194,7 +194,7 @@ export default function ChatInterface() {
                             <div className="chat-bubble chat-bubble-ai shadow-lg">
                                 <div className="flex items-center space-x-2 text-primary-600 mb-2">
                                     <Sparkles className="w-4 h-4" />
-                                    <span className="text-xs font-medium">AI Assistant</span>
+                                    <span className="text-xs font-medium">KinChat Your AI Assistant</span>
                                 </div>
                                 <LoadingSpinner text="Analyzing and generating response..." />
                             </div>

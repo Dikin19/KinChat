@@ -20,8 +20,8 @@ export default function Header({ onShowInfo, onShowSettings }: HeaderProps) {
                             <Bot className="w-6 h-6" />
                         </div>
                         <div>
-                            <h1 className="text-xl font-bold">AI Assistant</h1>
-                            <p className="text-primary-100 text-sm">Powered by Google Gemini</p>
+                            <h1 className="text-xl font-bold">KinChat</h1>
+                            <p className="text-primary-100 text-sm">Made by AIGemini</p>
                         </div>
                     </div>
 
