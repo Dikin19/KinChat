@@ -16,6 +16,8 @@
 @layer components {
   .chat-bubble {
     @apply rounded-2xl px-4 py-3 max-w-xs md:max-w-md lg:max-w-lg;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
   .chat-bubble-user {
