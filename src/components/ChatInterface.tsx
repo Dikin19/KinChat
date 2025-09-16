@@ -1,21 +1,42 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { Send, Paperclip, Image, FileText, Mic, X, Bot, User, Loader2, Sparkles } from 'lucide-react';
+import { Send, Paperclip, Image, FileText, Mic, X, Bot, User, Sparkles } from 'lucide-react';
 import { Message, FileUpload } from '@/types';
 import Header from './Header';
 import LoadingSpinner from './LoadingSpinner';
 import TimeDisplay from './TimeDisplay';
+
+
+function formatProfessionalText(text: string): string {
+        return text
+            // Remove bullet points and list markers
+            .replace(/^[*•\-+]\s*/gm, '')
+            // Remove bold/italic markdown
+            .replace(/(^|\s)[*_]{1,2}([^*_]+)[*_]{1,2}(?=\s|$)/g, '$1$2')
+            // Remove excessive line breaks
+            .replace(/\n{3,}/g, '\n\n')
+            // Clean up whitespace
+            .replace(/^\s+|\s+$/g, '')
+            // Ensure proper paragraph spacing
+            .split('\n\n')
+            .map(paragraph => paragraph.trim())
+            .filter(paragraph => paragraph.length > 0)
+            .join('\n\n');
+    }
+
 
 export default function ChatInterface() {
     const [messages, setMessages] = useState<Message[]>([
         {
             id: '1',
             type: 'ai',
-            content: 'Hello! I\'m KinChat. I can help you with text conversations, analyze images, process documents, and transcribe audio. How can I assist you today?',
+            content: "Hello! I'm KinChat. I can help you with text conversations, analyze images, process documents, and transcribe audio. How can I assist you today?",
             timestamp: new Date(),
         },
     ]);
+
+
     const [inputValue, setInputValue] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [attachedFiles, setAttachedFiles] = useState<FileUpload[]>([]);
@@ -78,8 +99,7 @@ export default function ChatInterface() {
             let response;
 
             if (attachedFiles.length > 0) {
-                // Handle file uploads
-                const file = attachedFiles[0]; // For now, handle one file at a time
+                const file = attachedFiles[0];
                 const formData = new FormData();
                 formData.append(file.type, file.file);
                 formData.append('prompt', inputValue || 'Analyze this file');
@@ -90,7 +110,6 @@ export default function ChatInterface() {
                     body: formData,
                 });
             } else {
-                // Handle text-only messages
                 response = await fetch('/api/generate-text', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -143,43 +162,54 @@ export default function ChatInterface() {
                 {messages.map((message) => (
                     <div
                         key={message.id}
-                        className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} animate-slide-up`}
+                        className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
                     >
-                        <div className={`flex items-start space-x-3 max-w-3xl ${message.type === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                            <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 shadow-lg ${message.type === 'user'
-                                ? 'bg-gradient-to-r from-primary-500 to-primary-600 text-white'
-                                : 'bg-gradient-to-r from-gray-100 to-gray-200 text-gray-600'
-                                }`}>
-                                {message.type === 'user' ? (
-                                    <User className="w-5 h-5" />
-                                ) : (
-                                    <Bot className="w-5 h-5" />
-                                )}
+                        <div className={`flex items-end max-w-2xl ${message.type === 'user' ? 'flex-row-reverse' : ''}`}>
+                            {/* Avatar */}
+                            <div className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 shadow ${message.type === 'user' ? 'bg-primary-500 text-white' : 'bg-gray-200 text-gray-600'}`}>
+                                {message.type === 'user' ? <User className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
                             </div>
-                            <div className={`relative ${message.type === 'user' ? 'chat-bubble-user' : 'chat-bubble-ai'} chat-bubble shadow-lg`}>
-                                {message.type === 'ai' && (
-                                    <div className="flex items-center space-x-2 mb-2 text-primary-600">
-                                        <Sparkles className="w-4 h-4" />
-                                        <span className="text-xs font-medium">KinChat Your AI Assistant</span>
-                                    </div>
-                                )}
-                                <p className="whitespace-pre-wrap leading-relaxed">{message.content}</p>
+                            {/* Chat Bubble */}
+                            <div className={`relative px-6 py-5 rounded-3xl shadow-lg font-sans text-base ${message.type === 'user' ? 'bg-gradient-to-br from-primary-500 to-primary-600 text-white' : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-900'}`}
+                                style={{ minWidth: '140px', maxWidth: '80%' }}>
+                                {/* Bubble Tail */}
+                                <span className={`absolute bottom-0 ${message.type === 'user' ? 'right-[-10px] border-l-[16px] border-t-[16px] border-l-primary-600 border-t-transparent' : 'left-[-10px] border-r-[16px] border-t-[16px] border-r-gray-200 border-t-transparent'}`}></span>
+                                {/* Sender Label & Timestamp */}
+                                <div className="flex items-center mb-2 gap-2">
+                                    <span className={`text-xs font-semibold tracking-wide ${message.type === 'user' ? 'text-white' : 'text-primary-700'}`}>{message.type === 'user' ? 'You' : 'KinChat AI'}</span>
+                                    <span className="text-xs text-gray-400">|</span>
+                                    <TimeDisplay timestamp={message.timestamp} />
+                                </div>
+                                {/* Message Content */}
+                                <div className="text-base leading-relaxed">
+                                    {message.type === 'ai' ? (
+                                        <div className="space-y-4">
+                                            {formatProfessionalText(message.content)
+                                                .split('\n\n')
+                                                .map((paragraph, idx) => (
+                                                    <p key={idx} className="text-justify">
+                                                        {paragraph}
+                                                    </p>
+                                                ))}
+                                        </div>
+                                    ) : (
+                                        <p>{message.content}</p>
+                                    )}
+                                </div>
+                                {/* Attachments */}
                                 {message.attachments && (
-                                    <div className="mt-3 space-y-2">
+                                    <div className="mt-3 space-y-1">
                                         {message.attachments.map((attachment, index) => (
-                                            <div key={index} className="flex items-center space-x-2 text-sm bg-white bg-opacity-50 rounded-lg p-2">
+                                            <div key={index} className="flex items-center space-x-2 text-xs bg-white bg-opacity-90 rounded-lg p-1">
                                                 {attachment.type === 'image' && <Image className="w-4 h-4 text-blue-500" />}
                                                 {attachment.type === 'document' && <FileText className="w-4 h-4 text-green-500" />}
                                                 {attachment.type === 'audio' && <Mic className="w-4 h-4 text-red-500" />}
-                                                <span className="font-medium">{attachment.name}</span>
+                                                <span className="font-medium truncate max-w-[120px]">{attachment.name}</span>
                                                 <span className="text-xs text-gray-500">({(attachment.size / 1024).toFixed(1)} KB)</span>
                                             </div>
                                         ))}
                                     </div>
                                 )}
-                                <div className="text-xs opacity-60 mt-3 flex items-center space-x-2">
-                                    <TimeDisplay timestamp={message.timestamp} />
-                                </div>
                             </div>
                         </div>
                     </div>
