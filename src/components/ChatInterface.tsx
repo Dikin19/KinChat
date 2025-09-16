@@ -9,21 +9,21 @@ import TimeDisplay from './TimeDisplay';
 
 
 function formatProfessionalText(text: string): string {
-        return text
-            // Remove bullet points and list markers
-            .replace(/^[*•\-+]\s*/gm, '')
-            // Remove bold/italic markdown
-            .replace(/(^|\s)[*_]{1,2}([^*_]+)[*_]{1,2}(?=\s|$)/g, '$1$2')
-            // Remove excessive line breaks
-            .replace(/\n{3,}/g, '\n\n')
-            // Clean up whitespace
-            .replace(/^\s+|\s+$/g, '')
-            // Ensure proper paragraph spacing
-            .split('\n\n')
-            .map(paragraph => paragraph.trim())
-            .filter(paragraph => paragraph.length > 0)
-            .join('\n\n');
-    }
+    return text
+        // Remove bullet points and list markers
+        .replace(/^[*•\-+]\s*/gm, '')
+        // Remove bold/italic markdown
+        .replace(/(^|\s)[*_]{1,2}([^*_]+)[*_]{1,2}(?=\s|$)/g, '$1$2')
+        // Remove excessive line breaks
+        .replace(/\n{3,}/g, '\n\n')
+        // Clean up whitespace
+        .replace(/^\s+|\s+$/g, '')
+        // Ensure proper paragraph spacing
+        .split('\n\n')
+        .map(paragraph => paragraph.trim())
+        .filter(paragraph => paragraph.length > 0)
+        .join('\n\n');
+}
 
 
 export default function ChatInterface() {
@@ -31,7 +31,7 @@ export default function ChatInterface() {
         {
             id: '1',
             type: 'ai',
-            content: "Hello! I'm KinChat. I can help you with text conversations, analyze images, process documents, and transcribe audio. How can I assist you today?",
+            content: "Hello! I'm KinChat. How can i help you?",
             timestamp: new Date(),
         },
     ]);
@@ -170,8 +170,10 @@ export default function ChatInterface() {
                                 {message.type === 'user' ? <User className="w-5 h-5" /> : <Bot className="w-5 h-5" />}
                             </div>
                             {/* Chat Bubble */}
-                            <div className={`relative px-6 py-5 rounded-3xl shadow-lg font-sans text-base ${message.type === 'user' ? 'bg-gradient-to-br from-primary-500 to-primary-600 text-white' : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-900'}`}
-                                style={{ minWidth: '140px', maxWidth: '80%' }}>
+                            <div
+                                className={`relative px-6 py-5 rounded-3xl shadow-lg font-sans text-base break-words whitespace-pre-wrap ${message.type === 'user' ? 'bg-gradient-to-br from-primary-500 to-primary-600 text-white' : 'bg-gradient-to-br from-gray-100 to-gray-200 text-gray-900'}`}
+                                style={{ minWidth: '140px', maxWidth: '80%' }}
+                            >
                                 {/* Bubble Tail */}
                                 <span className={`absolute bottom-0 ${message.type === 'user' ? 'right-[-10px] border-l-[16px] border-t-[16px] border-l-primary-600 border-t-transparent' : 'left-[-10px] border-r-[16px] border-t-[16px] border-r-gray-200 border-t-transparent'}`}></span>
                                 {/* Sender Label & Timestamp */}
@@ -187,13 +189,13 @@ export default function ChatInterface() {
                                             {formatProfessionalText(message.content)
                                                 .split('\n\n')
                                                 .map((paragraph, idx) => (
-                                                    <p key={idx} className="text-justify">
+                                                    <p key={idx} className="text-justify break-words whitespace-pre-wrap">
                                                         {paragraph}
                                                     </p>
                                                 ))}
                                         </div>
                                     ) : (
-                                        <p>{message.content}</p>
+                                        <p className="break-words whitespace-pre-wrap">{message.content}</p>
                                     )}
                                 </div>
                                 {/* Attachments */}
@@ -292,7 +294,7 @@ export default function ChatInterface() {
                                 onChange={(e) => setInputValue(e.target.value)}
                                 onKeyPress={handleKeyPress}
                                 placeholder="Type your message"
-                                className="input-field resize-none pr-20 rounded-xl border-2 border-gray-200 focus:border-primary-500 focus:ring-0"
+                                className="input-field resize-none pr-20 rounded-xl border-2 border-gray-200 focus:border-primary-500 focus:ring-0 w-full break-words whitespace-pre-wrap"
                                 rows={1}
                                 style={{ minHeight: '56px', maxHeight: '120px' }}
                             />
