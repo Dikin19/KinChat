@@ -1,5 +1,6 @@
 import ChatInterface from '@/components/ChatInterface';
 
+// file ini adalah children yang ada RootLayout
 export default function Home() {
     return (
         <main className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50 p-4">

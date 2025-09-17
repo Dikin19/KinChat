@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import dikinIcon from './dikin.png';
 
+
+// Metadata ini digunakan oleh Next.js untuk SEO dan tampilan browser.
 export const metadata: Metadata = {
     title: 'KinChat - Made by AIGemini',
     description: 'Professional AI Chatbot with text, image, document, and audio analysis capabilities',
@@ -10,11 +12,8 @@ export const metadata: Metadata = {
     icons: dikinIcon.src
 }
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode
-}) {
+export default function RootLayout( {children,}: {children: React.ReactNode}) {
+    
     return (
         <html lang="en" className="h-full">
             <head>

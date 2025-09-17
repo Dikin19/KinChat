@@ -27,13 +27,16 @@ function formatProfessionalText(text: string): string {
 
 
 export default function ChatInterface() {
+
     const [messages, setMessages] = useState<Message[]>([
+
         {
             id: '1',
             type: 'ai',
             content: "Hello! I'm KinChat. How can i help you?",
             timestamp: new Date(),
         },
+
     ]);
 
 
@@ -52,10 +55,12 @@ export default function ChatInterface() {
     }, [messages]);
 
     const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+        
         const files = event.target.files;
         if (!files) return;
 
         const newFiles: FileUpload[] = [];
+
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             let type: 'image' | 'document' | 'audio' = 'document';
@@ -96,6 +101,7 @@ export default function ChatInterface() {
         setInputValue('');
 
         try {
+
             let response;
 
             if (attachedFiles.length > 0) {
@@ -108,7 +114,9 @@ export default function ChatInterface() {
                 response = await fetch(endpoint, {
                     method: 'POST',
                     body: formData,
+
                 });
+
             } else {
                 response = await fetch('/api/generate-text', {
                     method: 'POST',
@@ -154,14 +162,13 @@ export default function ChatInterface() {
 
     return (
         <div className="flex flex-col h-screen bg-white shadow-2xl rounded-xl overflow-hidden">
-            {/* Header */}
             <Header />
 
-            {/* Messages */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6 scrollbar-hide bg-gradient-to-b from-gray-50 to-white">
                 {messages.map((message) => (
                     <div
                         key={message.id}
+                        
                         className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
                     >
                         <div className={`flex items-end max-w-2xl ${message.type === 'user' ? 'flex-row-reverse' : ''}`}>
