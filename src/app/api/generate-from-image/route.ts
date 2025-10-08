@@ -1,6 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { model, imageToGenerativePart } from "@/lib/gemini";
 
+// Handle GET requests
+export async function GET() {
+  return NextResponse.json(
+    {
+      error: "This endpoint only accepts POST requests",
+      message:
+        "Please send a POST request with form data containing 'prompt' and 'image'",
+    },
+    { status: 405 }
+  );
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();

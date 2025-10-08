@@ -1,13 +1,18 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-if (!process.env.GEMINI_API_KEY) {
-  throw new Error("GEMINI_API_KEY is not set in environment variables");
+const apiKey = process.env.GEMINI_API_KEY;
+
+if (!apiKey) {
+  console.error("GEMINI_API_KEY is not set in environment variables");
+  console.error(
+    "Please create a .env.local file and add: GEMINI_API_KEY=your_api_key_here"
+  );
 }
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const genAI = new GoogleGenerativeAI(apiKey || "");
 
 export const model = genAI.getGenerativeModel({
-  model: "models/gemini-1.5-flash",
+  model: "models/gemini-2.5-flash",
 });
 
 export const imageToGenerativePart = (buffer: Buffer, mimeType: string) => ({

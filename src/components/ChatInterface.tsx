@@ -41,8 +41,9 @@ export default function ChatInterface() {
 
 
     const [inputValue, setInputValue] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
     const [attachedFiles, setAttachedFiles] = useState<FileUpload[]>([]);
+
+    const [isLoading, setIsLoading] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -82,9 +83,11 @@ export default function ChatInterface() {
     };
 
     const sendMessage = async () => {
+
         if (!inputValue.trim() && attachedFiles.length === 0) return;
 
         const userMessage: Message = {
+
             id: Date.now().toString(),
             type: 'user',
             content: inputValue || 'Analyzing attached file...',
